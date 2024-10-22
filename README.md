@@ -1,53 +1,86 @@
-> Edited for use in IDX on 07/09/12
+This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
-# Welcome to your Expo app 👋
+# Getting Started
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+>**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
-## Get started
+## Step 1: Start the Metro Server
+
+First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+
+To start Metro, run the following command from the _root_ of your React Native project:
+
+```bash
+# using npm
+npm start
+
+# OR using Yarn
+yarn start
+```
+
+## Step 2: Start your Application
+
+Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+
+### For Android
+
+```bash
+# using npm
+npm run android
+
+# OR using Yarn
+yarn android
+```
+
+### For iOS
+
+```bash
+# using npm
+npm run ios
+
+# OR using Yarn
+yarn ios
+```
+
+If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+
+This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+
+## Step 3 Setup
+
+### Obtain API Keys
+
+You must add an API key for the Maps SDK to any app that uses the SDK.
+
+Before you start using the Maps SDK, you need a project with a billing account and the Maps SDK (both for Android and iOS) enabled. Google requires you to have a valid billing account setup, although likely you will not be charged anything. See the [Should you use this plugin?](about/should-you-use-this-plugin.md) section for more information on pricing.
+
+Extensive and detailed steps can be found here:
+
+- [Android](https://developers.google.com/maps/documentation/android-sdk/get-api-key)
+- [iOS](https://developers.google.com/maps/documentation/ios-sdk/get-api-key)
+
+You should have two API keys by the end of this step. Let's proceed.
+
+### Adding API keys to your App
 
 #### Android
 
-Android previews are defined as a `workspace.onStart` hook and started as a vscode task when the workspace is opened/started.
+Please follow the [official Google guide](https://developers.google.com/maps/documentation/android-sdk/config#step_2_add_your_api_key_to_the_project). See "Step 2: Add your API key to the project". You can skip Step 1, since this plugin already takes care of that.
 
-Note, if you can't find the task, either:
-- Rebuild the environment (using command palette: `IDX: Rebuild Environment`), or
-- Run `npm run android -- --tunnel` command manually run android and see the output in your terminal. The device should pick up this new command and switch to start displaying the output from it.
+Alternatively, you can (**but really should not**) use the following quick and dirty way:
 
-In the output of this command/task, you'll find options to open the app in a
+In your `AndroidManifest.xml` add the following lines:
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You'll also find options to open the app's developer menu, reload the app, and more.
-
-#### Web
-
-Web previews will be started and managred automatically. Use the toolbar to manually refresh.
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```diff
+<application>
+...
++  <meta-data
++    android:name="com.google.android.geo.API_KEY"
++    android:value="YOUR_ANDROID_MAPS_API_KEY"/>
+...
+</application>
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+where `YOUR_ANDROID_MAPS_API_KEY` is the API key you aqcuired in the previous step.
 
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Again: please **do not** use this alternative method for anything other than testing purposes, since you **will** leak your API Key.
